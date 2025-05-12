@@ -11,7 +11,7 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/", authMiddleware, async (req, res) => {
-  const tasks = await Task.find({ createdBy: req.user.userId });
+  const tasks = await Task.find({ createdBy: req.user.userId }).populate('createdBy', 'name').populate('lastUpdatedBy', 'name');
   res.json(tasks);
 });
 
